@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class AlertFarAway : MonoBehaviour {
 
-    public float threshold; //distance that player can travel out before being alerted
-    public float farThreshold; //distance that begins constant alert
+    public float threshold = 5; //distance that player can travel out before being alerted
+    public float farThreshold = 10; //distance that begins constant alert
+    public CalculateDistance calcDistance; //reference to calculate distance script
+    //public Indicator indicator; //reference to indicator script
+    public GameObject indicatorArm; //reference to indicator arm object
 
-    CalculateDistance calcDistance; //reference to calculate distance script
     bool withinInnerRing = false; //checks if player is within inner ring area
     bool inOuterRing = false; //checks if player is in outer ring
     float distanceLastTime; //distance before last update
@@ -44,6 +46,9 @@ public class AlertFarAway : MonoBehaviour {
                 //change in inner ring to false
                 withinInnerRing = false;
                 //trigger visual cue
+                //indicator.PointAtTarget();
+                SpawnIndicator();
+
                 print("Leaving inner area");
             }
             //check if last check was in outer ring
@@ -66,5 +71,22 @@ public class AlertFarAway : MonoBehaviour {
                 print("Entering outer ring");
             }
         }
+        distanceLastTime = calcDistance.GetDistanceBetween();
+    }
+
+    //set to constantly alert player
+    void ConstantAlert()
+    {
+        if (inOuterRing)
+        {
+
+        }
+    }
+
+    void SpawnIndicator()
+    {
+        GameObject armClone = Instantiate(indicatorArm, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        print("Spawn Indicator");
+        armClone.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
     }
 }
