@@ -34,7 +34,16 @@ public class Indicator : MonoBehaviour
         float angle = Vector3.Angle(moa.transform.forward, target.transform.position - moa.transform.position);
         print("Angle: " + angle);
         //set arm to rotation, for circular effect
-        transform.Rotate(0.0f, 0.0f, angle);
+        //check if moa is on x +ve side of egg
+        if (moa.transform.position.x - target.transform.position.x >= 0)
+        {
+            transform.Rotate(0.0f, 0.0f, angle);
+        }
+        //else on -ve side
+        else if (moa.transform.position.x - target.transform.position.x < 0)
+        {
+            transform.Rotate(0.0f, 0.0f, 360 - angle);
+        }
         //make clone of arrow object
         GameObject arrowClone = indicatorArrow;
         //spawn arrow at point

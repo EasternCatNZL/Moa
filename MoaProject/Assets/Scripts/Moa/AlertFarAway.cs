@@ -6,6 +6,7 @@ public class AlertFarAway : MonoBehaviour {
 
     public float threshold = 5; //distance that player can travel out before being alerted
     public float farThreshold = 10; //distance that begins constant alert
+    public float farAlertDelay = 3; //delay in alert when in far circle
     public CalculateDistance calcDistance; //reference to calculate distance script
     //public Indicator indicator; //reference to indicator script
     public GameObject indicatorArm; //reference to indicator arm object
@@ -13,10 +14,11 @@ public class AlertFarAway : MonoBehaviour {
     bool withinInnerRing = false; //checks if player is within inner ring area
     bool inOuterRing = false; //checks if player is in outer ring
     float distanceLastTime; //distance before last update
+    float lastAlertTime; //time since last alert
 
 	// Use this for initialization
 	void Start () {
-		
+        lastAlertTime = Time.time;
 	}
 	
 	// Update is called once per frame
@@ -70,19 +72,17 @@ public class AlertFarAway : MonoBehaviour {
                 //trigger visual cue
                 print("Entering outer ring");
             }
+            //when in outer ring, constantly alert player
+            if (Time.time - lastAlertTime >= farAlertDelay)
+            {
+                SpawnIndicator();
+                lastAlertTime = Time.time;
+            }
         }
         distanceLastTime = calcDistance.GetDistanceBetween();
     }
 
-    //set to constantly alert player
-    void ConstantAlert()
-    {
-        if (inOuterRing)
-        {
-
-        }
-    }
-
+    //spawns the canvas object that has directional indicator
     void SpawnIndicator()
     {
         GameObject armClone = Instantiate(indicatorArm, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
