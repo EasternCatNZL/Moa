@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class TitleManagerScript : MonoBehaviour {
 
-    public Image sign; //reference to sign
-    public Sprite[] signs = new Sprite[2]; //array of images
+    public Image startArrow; //reference to start arrow
+    public Image quitArrow; //reference to end arrow
+    //public Sprite[] signs = new Sprite[2]; //array of images
 
     /*
      * button choice:
@@ -44,14 +45,16 @@ public class TitleManagerScript : MonoBehaviour {
                     //change seleceted button
                     currentButton = 1;
                     //change graphical output
-                    sign.sprite = signs[1];
+                    startArrow.color = new Color(1, 1, 1, 0);
+                    quitArrow.color = new Color(1, 1, 1, 1);
                 }
                 else if (currentButton == 1)
                 {
                     //change seleceted button
                     currentButton = 0;
                     //change graphical output
-                    sign.sprite = signs[0];
+                    startArrow.color = new Color(1, 1, 1, 1);
+                    quitArrow.color = new Color(1, 1, 1, 0);
                 }
                 canInput = false;
             }
