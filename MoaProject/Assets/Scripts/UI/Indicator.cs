@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Indicator : MonoBehaviour
 {
     public float destroyDelay = 5.0f;
-    //public Canvas canvas; //reference to the canvas
+    [HideInInspector]
     public GameObject moa; //reference to moa object
-    //public GameObject indicatorArm; //reference to the indicator arm, used to rotate indicator around
-    public GameObject indicatorHead; //reference to the indicator head, where the arrow should be
+    //public GameObject directionIndicator; //reference to direciton indicator
+    [HideInInspector]
     public GameObject target; //reference to target to point at
-    public GameObject indicatorArrow; //reference to indicator arrow object
 
     // Use this for initialization
     void Start()
@@ -44,17 +44,7 @@ public class Indicator : MonoBehaviour
         {
             transform.Rotate(0.0f, 0.0f, 360 - angle);
         }
-        //make clone of arrow object
-        GameObject arrowClone = indicatorArrow;
-        //spawn arrow at point
-        Instantiate(arrowClone, indicatorHead.transform.position, indicatorHead.transform.rotation, transform);
-
-        GameObject clone = Instantiate(indicatorArrow, indicatorHead.transform.position, indicatorHead.transform.rotation) as GameObject;
-        clone.transform.SetParent(indicatorHead.transform, false);
-        print("Tried to spawn arrow");
-        //set parent to canvas
-        //arrowClone.transform.parent = gameObject.transform;
-        
+        //directionIndicator.GetComponent<FadeImage>().fadingIn = true;
     }
 
     IEnumerator DestroyAfterDelay()
